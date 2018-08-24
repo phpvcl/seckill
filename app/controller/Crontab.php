@@ -10,6 +10,10 @@ namespace app\controller;
 class Crontab
 {
     private $channel = 'orderChannel';
+    //redis IP
+    private $host = '127.0.0.1';
+    //redis 端口
+    private $port = '6379';    
     /**
      * 订阅消息
      * 
@@ -18,7 +22,7 @@ class Crontab
     public function execute()
     {
         $redis = new \Redis();
-        $redis->pconnect('127.0.0.1', 6379, 0);
+        $redis->pconnect($this->host, $this->port, 0);
         $redis->subscribe(array($this->channel), array($this, 'callback'));
     }
     /**
